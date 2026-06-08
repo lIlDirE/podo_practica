@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Лисенко Альбіна • Практикуючий Подолог • Одеса</title>
+    
+    <!-- Google Fonts: Elegant Serif & Clean Sans-Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ЦВЕТОВАЯ ПАЛИТРА И БАЗОВЫЕ НАСТРОЙКИ --- */
+        :root {
+            --bg-cream: #FDFBF7;
+            --bg-cream-dark: #F5EFE4;
+            --sage-primary: #6E7F6B;
+            --sage-light: #8E9F8C;
+            --sage-soft: #D9E2D5;
+            --sage-dark: #4A5548;
+            --text-dark: #2C332B;
+            --text-muted: #606A5F;
+            --white: #FFFFFF;
+            --shadow-soft: 0 15px 35px rgba(110, 127, 107, 0.08);
+            --shadow-elegant: 0 20px 40px rgba(0, 0, 0, 0.04);
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .serif-font {
+            font-family: var(--font-serif);
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* --- КОНТЕЙНЕРИ --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .text-center { text-align: center; }
+
+        /* --- КНОПКИ --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--sage-primary);
+            color: var(--white);
+            padding: 18px 40px;
+            border: none;
+            border-radius: 0;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(110, 127, 107, 0.15);
+        }
+
+        .btn:hover {
+            background-color: var(--sage-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(110, 127, 107, 0.25);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--sage-primary);
+            border: 1px solid var(--sage-primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--sage-primary);
+            color: var(--white);
+        }
+
+        /* --- ФЛОАТИНГ КНОПКА КОНСУЛЬТАЦІЇ --- */
+        .floating-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .floating-cta.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* --- ШАПКА / НАВІГАЦІЯ --- */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 35px 0;
+            z-index: 10;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 30px;
+            letter-spacing: 0.5px;
+            color: var(--text-dark);
+            min-width: 180px;
+        }
+
+        .logo span {
+            font-size: 12px;
+            font-family: var(--font-sans);
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--sage-primary);
+            margin-top: 2px;
+        }
+
+        /* --- ГЕРОЙ-СЕКЦІЯ --- */
+        .hero {
+            position: relative;
+            background: linear-gradient(180deg, #FDFBF7 0%, #F5EFE4 100%);
+            padding-top: 160px;
+            padding-bottom: 100px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--sage-primary);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 5.5vw, 68px);
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 45px;
+            font-weight: 300;
+            max-width: 580px;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            min-height: 380px;
+            max-height: 540px;
+            object-fit: cover;
+            box-shadow: var(--shadow-elegant);
+            border-radius: 210px 210px 0 0;
+        }
+
+        /* --- СЕКЦІЯ ПРО ЛІКАРЯ --- */
+        .about {
+            background-color: var(--white);
+        }
+
+        .section-title {
+            font-size: clamp(34px, 4.5vw, 52px);
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            font-weight: 400;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--sage-primary);
+            margin-bottom: 60px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-img {
+            width: 100%;
+            height: auto;
+            min-height: 380px;
+            max-height: 500px;
+            object-fit: cover;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .about-text .slogan-highlight {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            color: var(--sage-dark);
+            line-height: 1.4;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .about-text .sub-slogan {
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--sage-primary);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 35px 0;
+        }
+
+        .features-list li {
+            font-size: 17px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .features-list li .bullet {
+            width: 6px;
+            height: 6px;
+            background-color: var(--sage-primary);
+            border-radius: 50%;
+        }
+
+        /* --- СЕКЦІЯ ПОСЛУГ --- */
+        .services {
+            background-color: var(--bg-cream);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 35px;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            padding: 45px;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--sage-soft);
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 30px;
+            color: var(--sage-primary);
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 18px;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* --- КОНТАКТИ ТА КАРТА --- */
+        .contacts {
+            background-color: var(--white);
+            position: relative;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 60px;
+            align-items: start; 
+            text-align: left;
+        }
+
+        .contact-info-list {
+            list-style: none;
+        }
+
+        .contact-info-list li {
+            font-size: 18px;
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+
+        .contact-info-list li strong {
+            font-weight: 400;
+            font-family: var(--font-serif);
+            font-size: 26px;
+            display: block;
+            color: var(--sage-primary);
+            margin-bottom: 6px;
+        }
+
+        .instagram-btn-wrapper {
+            margin-top: 20px;
+        }
+
+        .map-container-box {
+            width: 100%;
+            height: 450px;
+            background-color: var(--bg-cream-dark);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            border: 1px solid var(--sage-soft);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-placeholder-text {
+            position: absolute;
+            z-index: 1;
+            padding: 30px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 300;
+            pointer-events: none;
+        }
+
+        .map-container-box iframe {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+            filter: grayscale(100%) sepia(15%) saturate(70%) contrast(95%);
+            -webkit-filter: grayscale(100%) sepia(15%) saturate(70%) contrast(95%);
+        }
+
+        /* --- ФУТЕР --- */
+        footer {
+            background-color: var(--bg-cream);
+            padding: 40px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--sage-soft);
+        }
+
+        /* --- МОДАЛЬНЕ ВІКНО --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(44, 51, 43, 0.4);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background-color: var(--bg-cream);
+            width: 100%;
+            max-width: 500px;
+            padding: 50px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+            position: relative;
+            transition: var(--transition);
+            transform: scale(0.9);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--text-dark);
+        }
+
+        .modal-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--sage-soft);
+            background-color: var(--white);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            border-radius: 0;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--sage-primary);
+            background-color: var(--white);
+        }
+
+        .modal-success-content {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--sage-soft);
+            color: var(--sage-dark);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+
+        /* --- АДАПТИВНІСТЬ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ --- */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                text-align: center;
+            }
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero p { margin-left: auto; margin-right: auto; }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .map-container-box {
+                height: 380px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                position: relative !important; 
+                padding: 20px 0 !important;
+                background-color: var(--bg-cream);
+            }
+            .nav-wrapper {
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+            }
+            .logo {
+                font-size: 22px !important; 
+                min-width: auto;
+            }
+            .logo span {
+                font-size: 10px !important;
+                letter-spacing: 1px !important;
+            }
+            header .btn {
+                padding: 10px 18px !important; 
+                font-size: 10px !important;
+                white-space: nowrap;
+            }
+            .hero {
+                padding-top: 30px !important; 
+            }
+            .hero h1 {
+                font-size: 34px !important; 
+                margin-bottom: 20px !important;
+            }
+            .hero p {
+                font-size: 15px !important;
+                margin-bottom: 35px !important;
+            }
+            .section-padding { 
+                padding: 70px 0 !important; 
+            }
+            .modal-container { 
+                padding: 40px 24px; 
+            }
+            .btn { 
+                width: 100%; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ФЛОАТИНГ КНОПКА КОНСУЛЬТАЦІЇ -->
+    <div class="floating-cta" id="floatingCta">
+        <button class="btn open-consultation-btn">Консультація</button>
+    </div>
+
+    <!-- ШАПКА САЙТА -->
+    <header>
+        <div class="container nav-wrapper">
+            <div class="logo">
+                Лисенко Альбіна 🫶
+                <span>Подологічна практика</span>
+            </div>
+            <button class="btn btn-outline open-consultation-btn">Консультація</button>
+        </div>
+    </header>
+
+    <!-- ГЕРОЙ-СЕКЦІЯ -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <p class="hero-subtitle">Естетика та здоров'я ваших ніг</p>
+                <h1>Подолог • Медичний педикюр • Одеса</h1>
+                <p>Експертна подологічна допомога та комплексне лікування патологій стопи і нігтьової пластини. Професійні медичні стандарти для вашого комфорту.</p>
+                <button class="btn open-consultation-btn">Отримати консультацію</button>
+            </div>
+            <div class="hero-image-wrapper">
+                <!-- 📸 КАРТИНКА ГОЛОВНОГО ЕКРАНУ (Нижче в лапках src можна вказати назву свого файлу або інтернет-посилання) -->
+                <img class="hero-img" src="hero.jpg" alt="Подологічна процедура">
+            </div>
+        </div>
+    </section>
+
+    <!-- СЕКЦИЯ ПРО ЛІКАРЯ -->
+    <section class="about section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrapper">
+                    <!-- 📸 КАРТИНКА БЛОКУ "ПРО СУБ'ЄКТА" (Нижче в лапках src можна вказати назву свого файлу або інтернет-посилання) -->
+                    <img class="about-img" src="about.jpg" alt="Сучасний кабінет подології">
+                </div>
+                <div class="about-text">
+                    <span class="section-subtitle">Про спеціаліста</span>
+                    <h2 class="section-title">Лисенко Альбіна</h2>
+                    <p class="slogan-highlight">«Про складне — простими словами ☝🏻»</p>
+                    <p class="sub-slogan">10 років досвіду в терапевтичній подології</p>
+                    <p style="font-weight: 300; color: var(--text-muted); margin-bottom: 20px;">Спеціалізуюся на патологіях нігтьового апарату та стопи будь-якої складності. Пріоритетом моєї практики є застосування сучасних безболісних методик, індивідуальний терапевтичний підхід та безкомпромісне дотримання протоколів стерилізації.</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="bullet"></span> Індивідуальний підхід до кожного пацієнта</li>
+                        <li><span class="bullet"></span> Лікування без болю та хірургічного втручання</li>
+                        <li><span class="bullet"></span> Бездоганна стерильність за медичними стандартами</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЕКЦИЯ ПОСЛУГ -->
+    <section class="services section-padding">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-subtitle">Послуги клініки</span>
+                <h2 class="section-title" style="margin-bottom: 70px;">Напрямки терапії</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div>
+                        <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        <h3>Медичний педикюр</h3>
+                        <p>Комплексний лікувально-гігієнічний догляд за шкірою стоп, profesійне шліфування тріщин та атравматична обробка нігтів.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div>
+                        <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path></svg>
+                        <h3>Врослі нігті</h3>
+                        <p>Консервативна корекція вростання (ортоніксія) за допомогою титанових ниток та скоб. Швидке зняття гострого болю без видалення нігтя.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div>
+                        <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        <h3>Грибок стопи та нігтів</h3>
+                        <p>Терапевтична зачистка оніхомікозу, парціальне видалення уражених тканин та системний супровід до повної регенерації.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div>
+                        <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <h3>Терапія мозолів та стрижневих омозолінь</h3>
+                        <p>Робота з обмеженими ділянками гіперкератозу, що мають глибокий корінь. Делікатне висвердлювання фрезами без пошкодження живих тканин та застосування розвантажувальних коректорів.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div>
+                        <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        <h3>Усунення натоптишів та плоскостопного гіперкератозу</h3>
+                        <p>Професійна обробка великих зон ороговілої шкіри в місцях найбільшого статичного навантаження стопи. Повертає м'якість, знімає печіння та блокує розвиток глибоких тріщин.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div>
+                        <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <h3>Діабетична стопа</h3>
+                        <p>Спеціалізований малотравматичний догляд за стопами при цукровому діабеті для превенції виразкових уражень тканин.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОНТАКТЫ И КАРТА -->
+    <section class="contacts section-padding">
+        <div class="container contacts-grid">
+            <div class="contacts-info">
+                <span class="section-subtitle">Завжди на зв'язку</span>
+                <h2 class="section-title" style="margin-bottom: 50px;">Контакти та локація</h2>
+                
+                <ul class="contact-info-list">
+                    <li>
+                        <strong>Адреса кабінету</strong>
+                        📍 Одеса, Київський район<br>
+                        📍 вул. Академіка Корольова, 75/1
+                    </li>
+                    <li>
+                        <strong>Графік роботи</strong>
+                        📅 Без вихідних: 10:00 – 20:00<br>
+                        (Прийом за попереднім записом)
+                    </li>
+                    <li>
+                        <strong>Телефон для запису</strong>
+                        +38 (XXX) XXX-XX-XX
+                    </li>
+                </ul>
+
+                <div class="instagram-btn-wrapper">
+                    <a href="https://www.instagram.com/_podo_practica_?igsh=ZGNnbm1jOWd5dDVw" target="_blank" class="btn btn-outline" style="text-transform: none; letter-spacing: 0.5px;">Instagram: @_podo_practica_</a>
+                </div>
+            </div>
+            
+            <div class="map-container-box">
+                <div class="map-placeholder-text">
+                    <strong>📍 Кабінет подології Лисенко Альбіни</strong><br>
+                    Одеса, вул. Академіка Корольова, 75/1<br>
+                    <span style="font-size: 12px; opacity: 0.7; display:block; margin-top:5px;">(Карта активується при переході на сайт у браузері)</span>
+                </div>
+                <iframe 
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=30.7040%2C46.3895%2C30.7185%2C46.3975&amp;layer=mapnik&amp;marker=46.3934%2C30.7112" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="container">
+            &copy; 2026 Лисенко Альбіна • Подологічна практика в Одесі. Всеохоплюючий догляд за здоров'ям стоп.
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНЕ ВІКНО ОНЛАЙН-КОНСУЛЬТАЦІЇ -->
+    <div class="modal-overlay" id="consultationModal">
+        <div class="modal-container">
+            <button class="modal-close" id="closeModal">&times;</button>
+            
+            <div id="modalFormContent">
+                <h3 class="modal-title">Online-консультація</h3>
+                <p class="modal-subtitle">Залиште ваші контактні дані. Спеціаліст передзвонить вам протягом 15 хвилин для детальної консультації.</p>
+                
+                <form id="consultationForm">
+                    <div class="form-group">
+                        <label for="clientName">Ваше ім'я *</label>
+                        <input type="text" id="clientName" class="form-control" placeholder="Олена" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientPhone">Номер телефону *</label>
+                        <input type="tel" id="clientPhone" class="form-control" placeholder="+380 (XX) XXX-XX-XX" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Замовити консультацію</button>
+                </form>
+            </div>
+
+            <div id="modalSuccessContent" class="modal-success-content">
+                <div class="success-icon">&checkmark;</div>
+                <h3 class="modal-title" style="font-size: 32px;">Дякуємо за заявку!</h3>
+                <p style="color: var(--text-muted); font-weight: 300; margin-bottom: 30px;">Альбіна отримала ваш запит і зателефонує вам протягом 15 хвилин.</p>
+                <button class="btn" id="closeSuccessBtn" style="width: 100%;">Зрозуміло</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- ЛОГІКА ТА ІНТЕРАКТИВНІСТЬ (JS) --- -->
+    <script>
+        const modalOverlay = document.getElementById('consultationModal');
+        const floatingCta = document.getElementById('floatingCta');
+        const consultationForm = document.getElementById('consultationForm');
+        const modalFormContent = document.getElementById('modalFormContent');
+        const modalSuccessContent = document.getElementById('modalSuccessContent');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                floatingCta.classList.add('visible');
+            } else {
+                floatingCta.classList.remove('visible');
+            }
+        });
+
+        document.querySelectorAll('.open-consultation-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalFormContent.style.display = 'block';
+                modalSuccessContent.style.display = 'none';
+                consultationForm.reset();
+                modalOverlay.classList.add('active');
+            });
+        });
+
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('closeSuccessBtn').addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        consultationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (consultationForm.checkValidity()) {
+                modalFormContent.style.display = 'none';
+                modalSuccessContent.style.display = 'block';
+            } else {
+                consultationForm.reportValidity();
+            }
+        });
+    </script>
+</body>
+</html>
